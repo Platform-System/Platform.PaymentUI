@@ -1,0 +1,56 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+    paths-ignore:
+      - '**.md'
+      - '.gitignore'
+  pull_request:
+    branches: [ main ]
+    paths-ignore:
+      - '**.md'
+      - '.gitignore'
+  repository_dispatch:
+    types: [ design-ui-updated ]
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm install --legacy-peer-deps
+        env:
+          GHCR_TOKEN: ${{ secrets.GHCR_TOKEN }}
+
+      - name: Run Linter
+        run: npm run lint
+
+      - name: Run Typecheck
+        run: npm run typecheck
+
+  build:
+    needs: verify
+    uses: Platform-System/Platform.CI-CD/.github/workflows/build-vite.yml@main
+    with:
+      image_name: 'platform-payment-ui'
+      push_image: true
+      build_args: |
+        VITE_API_URL=${{ vars.PUBLIC_API_URL }}
+        VITE_KEYCLOAK_URL=${{ vars.PUBLIC_AUTH_URL }}
+        VITE_KEYCLOAK_REALM=${{ vars.KEYCLOAK_REALM }}
+        VITE_KEYCLOAK_CLIENT_ID=${{ vars.PAYMENT_CLIENT_ID }}
+    secrets: inherit
