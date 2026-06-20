@@ -13,6 +13,7 @@
   "dependencies": {
     "@platform-system/api-client": "*",
     "@platform-system/design-ui": "^1.0.0",
+    "keycloak-js": "^26.2.4",
     "@radix-ui/react-accordion": "^1.2.12",
     "@radix-ui/react-alert-dialog": "^1.1.15",
     "@radix-ui/react-aspect-ratio": "^1.1.8",

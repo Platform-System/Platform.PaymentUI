@@ -19,7 +19,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       checkLoginIframe: false,
       enableLogging: false,
     })
-      .then((authenticated) => {
+      .then((authenticated: boolean) => {
         setIsAuthenticated(authenticated);
         if (authenticated) {
           const nextUser: AuthUser = keycloak.tokenParsed
@@ -32,7 +32,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         }
         setIsInitialized(true);
       })
-      .catch((error) => {
+      .catch((error: unknown) => {
         console.error('Keycloak initialization failed in PaymentUI', error);
         setIsInitialized(true);
       });
