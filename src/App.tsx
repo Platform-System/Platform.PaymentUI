@@ -21,8 +21,16 @@ function App() {
         <BrowserRouter>
           <Routes>
             {/* Main checkout routes */}
-            <Route path="/checkout" element={<CheckoutScreen />} />
-            <Route path="/checkout/:referenceCode" element={<CheckoutScreen />} />
+            <Route path="/checkout" element={
+              <AuthProvider>
+                <CheckoutScreen />
+              </AuthProvider>
+            } />
+            <Route path="/checkout/:referenceCode" element={
+              <AuthProvider>
+                <CheckoutScreen />
+              </AuthProvider>
+            } />
             
             {/* Transaction history portal */}
             <Route path="/transactions" element={
