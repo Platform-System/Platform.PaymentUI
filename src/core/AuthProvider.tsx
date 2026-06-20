@@ -4,20 +4,19 @@ import { keycloak } from './keycloak';
 import { AuthContext, type AuthUser } from './auth-context';
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [isInitialized, setIsInitialized] = useState(false);
+  const [isInitialized, setIsInitialized] = useState(!keycloak);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState<AuthUser>(null);
   const initRef = useRef(false);
 
   useEffect(() => {
-    if (initRef.current) return;
-    initRef.current = true;
-
     if (!keycloak) {
       console.error('Keycloak instance is not initialized. Please ensure VITE_KEYCLOAK_URL, VITE_KEYCLOAK_REALM, and VITE_KEYCLOAK_CLIENT_ID are set at build time.');
-      setIsInitialized(true);
       return;
     }
+
+    if (initRef.current) return;
+    initRef.current = true;
 
     keycloak.init({
       onLoad: 'login-required',
