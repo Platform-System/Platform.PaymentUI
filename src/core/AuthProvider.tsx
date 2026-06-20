@@ -52,10 +52,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   if (!isInitialized) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-neutral-950 text-white font-sans">
+      <div className="flex min-h-screen items-center justify-center bg-background text-foreground font-sans">
         <div className="flex flex-col items-center gap-4">
-          <Spinner className="h-10 w-10 text-white animate-spin" />
-          <p className="text-sm font-medium text-neutral-400">Đang khởi tạo quyền truy cập...</p>
+          <Spinner className="h-10 w-10 spinner-accent" />
+          <p className="text-sm font-medium text-muted-foreground">Đang khởi tạo quyền truy cập...</p>
         </div>
       </div>
     );
@@ -67,7 +67,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         isAuthenticated,
         isInitialized,
         login: () => keycloak?.login().catch(console.error),
-        logout: () => keycloak?.logout({ redirectUri: window.location.origin + '/transactions' }),
+        logout: () => keycloak?.logout({ redirectUri: window.location.origin + '/' }),
         token: keycloak?.token,
         user,
       }}
