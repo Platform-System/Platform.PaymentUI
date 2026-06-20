@@ -1,8 +1,8 @@
 import { configurePlatformApi, getKeycloak, getValidToken as getValidTokenShared } from '@platform-system/api-client';
 
-const keycloakUrl = import.meta.env.VITE_KEYCLOAK_URL || 'https://auth.nyxoris.com';
-const realm = import.meta.env.VITE_KEYCLOAK_REALM || 'platform';
-const clientId = import.meta.env.VITE_KEYCLOAK_CLIENT_ID || 'platform-payment-web';
+const keycloakUrl = import.meta.env.VITE_KEYCLOAK_URL;
+const realm = import.meta.env.VITE_KEYCLOAK_REALM;
+const clientId = import.meta.env.VITE_KEYCLOAK_CLIENT_ID;
 
 configurePlatformApi({
   baseURL: import.meta.env.VITE_API_URL || '', // Relative proxying in Vite
