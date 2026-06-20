@@ -1,6 +1,6 @@
 import React from 'react';
 import { CreditCard, Wallet } from 'lucide-react';
-import { Input } from '@platform-system/design-ui/components/input';
+import { Input } from '@platform-system/design-ui';
 
 interface PaymentMethodDetailsProps {
   selectedMethod: 'qr' | 'card' | 'wallet';

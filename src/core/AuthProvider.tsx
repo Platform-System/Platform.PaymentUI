@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { Spinner } from '@platform-system/design-ui/components/spinner';
+import { Spinner } from '@platform-system/design-ui';
 import { keycloak } from './keycloak';
 import { AuthContext, type AuthUser } from './auth-context';
 

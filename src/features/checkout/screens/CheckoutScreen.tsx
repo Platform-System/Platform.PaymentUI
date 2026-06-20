@@ -8,20 +8,7 @@ import {
   Store
 } from 'lucide-react';
 import { useAuth } from '../../../core/auth-context';
-import { Button } from '@platform-system/design-ui/components/button';
-import { 
-  Avatar, 
-  AvatarFallback, 
-  AvatarImage 
-} from '@platform-system/design-ui/components/avatar';
-import { 
-  DropdownMenu, 
-  DropdownMenuContent, 
-  DropdownMenuItem, 
-  DropdownMenuSeparator, 
-  DropdownMenuTrigger 
-} from '@platform-system/design-ui/components/dropdown-menu';
-import { cn } from '@platform-system/design-ui/lib/cn';
+import { Avatar, AvatarFallback, AvatarImage, Button, DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger, cn } from '@platform-system/design-ui';
 import { motion } from 'framer-motion';
 import { OrderSelectionScreen } from '../../dashboard';
 import { CheckoutProcessingScreen } from './CheckoutProcessingScreen';

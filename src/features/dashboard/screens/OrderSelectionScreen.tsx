@@ -11,20 +11,7 @@ import {
   Search 
 } from 'lucide-react';
 import { useTransactions } from '../hooks/useTransactions';
-import { Button } from '@platform-system/design-ui/components/button';
-import { Spinner } from '@platform-system/design-ui/components/spinner';
-import { Card, CardContent } from '@platform-system/design-ui/components/card';
-import { 
-  Table, 
-  TableHeader, 
-  TableBody, 
-  TableRow, 
-  TableHead, 
-  TableCell 
-} from '@platform-system/design-ui/components/table';
-import { Badge } from '@platform-system/design-ui/components/badge';
-import { FilterBar } from '@platform-system/design-ui/components/filter-bar';
-import { EmptyStatePanel } from '@platform-system/design-ui/components/empty-state-panel';
+import { Badge, Button, Card, CardContent, EmptyStatePanel, FilterBar, Spinner, Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@platform-system/design-ui';
 
 export const OrderSelectionScreen: React.FC = () => {
   // Pagination and hook for orders list

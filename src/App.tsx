@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { ThemeProvider } from '@platform-system/design-ui/theme-provider';
+import { ThemeProvider } from '@platform-system/design-ui';
 import { CheckoutScreen } from './features/checkout';
 import { AuthProvider } from './core/AuthProvider';
 import { TransactionsDashboardScreen } from './features/dashboard';

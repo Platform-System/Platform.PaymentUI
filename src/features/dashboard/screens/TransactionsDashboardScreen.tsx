@@ -15,20 +15,7 @@ import {
   TrendingUp,
   RotateCw
 } from 'lucide-react';
-import { Button } from '@platform-system/design-ui/components/button';
-import { Spinner } from '@platform-system/design-ui/components/spinner';
-import { Card, CardContent } from '@platform-system/design-ui/components/card';
-import { 
-  Table, 
-  TableHeader, 
-  TableBody, 
-  TableRow, 
-  TableHead, 
-  TableCell 
-} from '@platform-system/design-ui/components/table';
-import { Badge } from '@platform-system/design-ui/components/badge';
-import { TopbarShell } from '@platform-system/design-ui/components/topbar-shell';
-import { cn } from '@platform-system/design-ui/lib/cn';
+import { Badge, Button, Card, CardContent, Spinner, Table, TableBody, TableCell, TableHead, TableHeader, TableRow, TopbarShell, cn } from '@platform-system/design-ui';
 
 export const TransactionsDashboardScreen: React.FC = () => {
   const [page, setPage] = React.useState(1);
