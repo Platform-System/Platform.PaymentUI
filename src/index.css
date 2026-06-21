@@ -20,13 +20,12 @@ body {
 }
 
 body {
-  font-family: var(--font-family);
+  font-family: 'Plus Jakarta Sans', sans-serif !important;
   background-color: var(--background);
   color: var(--foreground);
   margin: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  letter-spacing: -0.01em;
 }
 
 a {
@@ -37,4 +36,5 @@ a {
 :root {
   --scrollbar-thumb: var(--scrollbar-thumb-zinc);
   --scrollbar-thumb-hover: var(--scrollbar-thumb-zinc-hover);
+  --store-accent-rgb: 15 23 42;
 }

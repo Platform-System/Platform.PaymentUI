@@ -1,4 +1,5 @@
 import React from 'react';
+import { useQuery } from '@tanstack/react-query';
 import { useTransactions } from '../hooks/useTransactions';
 import { useAuth } from '../../../core/auth-context';
 import { 
@@ -16,6 +17,14 @@ import {
   RotateCw
 } from 'lucide-react';
 import { Badge, Button, Card, CardContent, Spinner, Table, TableBody, TableCell, TableHead, TableHeader, TableRow, TopbarShell, cn } from '@platform-system/design-ui';
+import { apiClient } from '../../../shared/api/apiClient';
+
+interface Result<T> {
+  success: boolean;
+  data?: T;
+  statusCode?: number;
+  message?: string;
+}
 
 export const TransactionsDashboardScreen: React.FC = () => {
   const [page, setPage] = React.useState(1);
@@ -23,7 +32,54 @@ export const TransactionsDashboardScreen: React.FC = () => {
   const { data: pagedData, isLoading, refetch, isFetching } = useTransactions(page, pageSize);
   const transactions = pagedData?.items || [];
   const totalCount = pagedData?.totalCount || 0;
-  const { logout, user } = useAuth();
+  const { logout, user, isAuthenticated } = useAuth();
+
+  const { data: profile } = useQuery({
+    queryKey: ["profile"],
+    queryFn: async () => {
+      try {
+        const response = await apiClient.get<Result<{ identityId?: string | null, userName?: string | null, email?: string | null, avatarUrl?: string | null, displayName?: string | null }>>("/api/identity/users/me")
+        if (response.data && response.data.success && response.data.data) {
+          const p = response.data.data
+          try {
+            const [avatarResponse, profileResponse] = await Promise.allSettled([
+              apiClient.get<Result<{ url?: string | null }>>("/api/identity/users/me/images/avatar"),
+              apiClient.get<Result<{ displayName?: string | null }>>("/api/identity/users/me/profile")
+            ])
+            if (avatarResponse.status === "fulfilled" && avatarResponse.value.data && avatarResponse.value.data.success && avatarResponse.value.data.data?.url) {
+              p.avatarUrl = avatarResponse.value.data.data.url
+            }
+            if (profileResponse.status === "fulfilled" && profileResponse.value.data && profileResponse.value.data.success && profileResponse.value.data.data?.displayName) {
+              p.displayName = profileResponse.value.data.data.displayName
+            }
+          } catch {
+            // Ignored
+          }
+          if (typeof window !== "undefined" && p.identityId) {
+            if (p.avatarUrl && p.avatarUrl.includes("/local-avatar-fallback/")) {
+              const localAvatar = localStorage.getItem("user_avatar_" + p.identityId)
+              if (localAvatar) {
+                p.avatarUrl = localAvatar
+              } else {
+                p.avatarUrl = ""
+              }
+            } else if (!p.avatarUrl) {
+              const localAvatar = localStorage.getItem("user_avatar_" + p.identityId)
+              if (localAvatar) {
+                p.avatarUrl = localAvatar
+              }
+            }
+          }
+          return p
+        }
+      } catch {
+        return null
+      }
+      return null
+    },
+    enabled: isAuthenticated,
+    staleTime: 30 * 1000,
+  });
 
   const [isScrolled, setIsScrolled] = React.useState(false);
 
@@ -31,13 +87,19 @@ export const TransactionsDashboardScreen: React.FC = () => {
     const container = document.getElementById('dashboard-scroll-container');
     const handleScroll = (e: Event) => {
       const target = e.currentTarget as HTMLElement;
-      setIsScrolled(target.scrollTop > 20);
+      const scrollTop = target.scrollTop;
+      setIsScrolled((prev) => {
+        if (prev) {
+          return scrollTop > 15;
+        }
+        return scrollTop > 35;
+      });
     };
 
     if (container) {
-      container.addEventListener('scroll', handleScroll);
+      container.addEventListener('scroll', handleScroll, { passive: true });
       setTimeout(() => {
-        setIsScrolled(container.scrollTop > 20);
+        setIsScrolled(container.scrollTop > 35);
       }, 0);
     }
 
@@ -139,7 +201,7 @@ export const TransactionsDashboardScreen: React.FC = () => {
         <div className="flex items-center gap-4">
           <div className="hidden md:flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-secondary border border-border text-xs text-foreground">
             <User size={13} className="text-muted-foreground" />
-            <span>{user?.name || user?.preferred_username || 'Khách hàng'}</span>
+            <span>{profile?.displayName || user?.name || user?.preferred_username || 'Khách hàng'}</span>
           </div>
 
           <Button 

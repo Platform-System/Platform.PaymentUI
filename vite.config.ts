@@ -15,7 +15,7 @@ export default defineConfig({
     port: 5174, // AdminUI runs on 5173, so let's run PaymentUI on 5174
     proxy: {
       '/api': {
-        target: 'http://localhost:5000', // local gateway or backend API base
+        target: 'https://api.nyxoris.com',
         changeOrigin: true,
         secure: false,
       }
