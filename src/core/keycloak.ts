@@ -1,8 +1,5 @@
 import { configurePlatformApi, getKeycloak, getValidToken as getValidTokenShared } from '@platform-system/api-client';
-
-const getEnv = (key: string): string => {
-  return (window as unknown as Record<string, Record<string, string>>).__ENV__?.[key] || import.meta.env[key] || '';
-};
+import { getEnv } from '@/shared/config/env';
 
 const keycloakUrl = getEnv('VITE_KEYCLOAK_URL');
 const realm = getEnv('VITE_KEYCLOAK_REALM');

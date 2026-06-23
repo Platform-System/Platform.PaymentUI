@@ -194,7 +194,7 @@ export const CheckoutScreen: React.FC = () => {
                     <DropdownMenuItem asChild className="cursor-pointer font-normal p-2.5 min-w-0 focus:bg-accent focus:text-accent-foreground w-full">
                       <a href="https://account.nyxoris.com" className="w-full">
                         <UserProfileCard
-                          name={profile?.displayName || user?.name || user?.preferred_username || 'Người dùng'}
+                          name={profile?.displayName || (user?.preferred_username as string) || (user?.name as string) || 'Người dùng'}
                           avatarSrc={profile?.avatarUrl || user?.picture || user?.avatar || ''}
                           subtext="Gói: Miễn phí"
                           showChevron={true}
