@@ -1,8 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
-@import "tailwindcss";
+@import "tailwindcss" source(none);
 @import "@platform-system/design-ui/index.css";
+@source "./**/*.tsx";
+@source "./**/*.ts";
 @source "../node_modules/@platform-system/design-ui/src/**/*.tsx";
-@source "../../node_modules/@platform-system/design-ui/src/**/*.tsx";
 @source "../../Platform.DesignUI/src/**/*.tsx";
 
 /* ==========================================
