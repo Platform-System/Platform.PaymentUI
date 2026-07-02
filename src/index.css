@@ -4,6 +4,7 @@
 @source "./**/*.tsx";
 @source "./**/*.ts";
 @source "../node_modules/@platform-system/design-ui/src/**/*.tsx";
+@source "../../node_modules/@platform-system/design-ui/src/**/*.tsx";
 @source "../../Platform.DesignUI/src/**/*.tsx";
 
 /* ==========================================
